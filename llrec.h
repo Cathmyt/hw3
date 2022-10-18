@@ -47,6 +47,7 @@ struct Node
  */
 void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot);
 
+void llpivot_helper(Node *&head, Node *&smaller, Node *&larger, int pivot);
 /**
  * Given a linked list pointed to by head, removes (filters out) nodes
  * whose value does not meet the criteria given by the predicate
@@ -81,7 +82,20 @@ Node* llfilter(Node* head, Comp pred)
     //*********************************************
     // Provide your implementation below
     //*********************************************
-
+    if (head == nullptr) {
+			return head;
+		}
+		else {
+			Node* temp = llfilter(head->next, pred);//head recursion
+			if (pred(head->val)) {//filtered
+				delete head;
+				return temp;
+			}
+			else {//unchanged
+				head->next = temp;
+				return head;
+			}
+		}
 
 }
 
